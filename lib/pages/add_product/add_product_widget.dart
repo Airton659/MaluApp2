@@ -6,7 +6,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'add_product_model.dart';
 export 'add_product_model.dart';
 
@@ -26,6 +28,11 @@ class _AddProductWidgetState extends State<AddProductWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AddProductModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.lockOrientation();
+    });
 
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
