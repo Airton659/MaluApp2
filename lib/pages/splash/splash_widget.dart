@@ -27,6 +27,8 @@ class _SplashWidgetState extends State<SplashWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
       await Future.delayed(const Duration(milliseconds: 3000));
+
+      context.pushNamed('HomePage');
     });
   }
 
