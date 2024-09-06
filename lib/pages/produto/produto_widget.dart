@@ -52,7 +52,6 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Scaffold(
-            backgroundColor: const Color(0xFFEAE6FF),
             body: Center(
               child: SizedBox(
                 width: 50.0,
@@ -78,7 +77,6 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
             onWillPop: () async => false,
             child: Scaffold(
               key: scaffoldKey,
-              backgroundColor: const Color(0xFFEAE6FF),
               body: Container(
                 width: MediaQuery.sizeOf(context).width * 1.0,
                 decoration: BoxDecoration(
@@ -98,6 +96,57 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 15.0, 20.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 20.0,
+                              borderWidth: 1.0,
+                              buttonSize: 40.0,
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                color: Color(0xFFCE7899),
+                                size: 24.0,
+                              ),
+                              onPressed: () async {
+                                context.pushNamed('HomePage');
+                              },
+                            ),
+                            if (loggedIn == true)
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed(
+                                    'editProduct',
+                                    queryParameters: {
+                                      'produto': serializeParam(
+                                        widget.produto,
+                                        ParamType.SupabaseRow,
+                                      ),
+                                      'img': serializeParam(
+                                        produtoProdutosRow?.image,
+                                        ParamType.String,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                },
+                                child: const FaIcon(
+                                  FontAwesomeIcons.edit,
+                                  color: Color(0xFFCE7899),
+                                  size: 24.0,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                       Stack(
                         children: [
                           Padding(
@@ -113,63 +162,13 @@ class _ProdutoWidgetState extends State<ProdutoWidget> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                          const Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      5.0, 0.0, 0.0, 0.0),
-                                  child: FlutterFlowIconButton(
-                                    borderColor: const Color(0xFFCE7899),
-                                    borderRadius: 20.0,
-                                    borderWidth: 1.0,
-                                    buttonSize: 40.0,
-                                    icon: const Icon(
-                                      Icons.arrow_back_rounded,
-                                      color: Color(0xFFCE7899),
-                                      size: 24.0,
-                                    ),
-                                    onPressed: () async {
-                                      context.safePop();
-                                    },
-                                  ),
-                                ),
-                                if (loggedIn == true)
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 5.0, 0.0),
-                                    child: FlutterFlowIconButton(
-                                      borderColor: const Color(0xFFCE7899),
-                                      borderRadius: 20.0,
-                                      borderWidth: 1.0,
-                                      buttonSize: 40.0,
-                                      icon: const Icon(
-                                        Icons.edit,
-                                        color: Color(0xFFCE7899),
-                                        size: 24.0,
-                                      ),
-                                      onPressed: () async {
-                                        context.pushNamed(
-                                          'editProduct',
-                                          queryParameters: {
-                                            'produto': serializeParam(
-                                              widget.produto,
-                                              ParamType.SupabaseRow,
-                                            ),
-                                            'img': serializeParam(
-                                              produtoProdutosRow.image,
-                                              ParamType.String,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                              ],
+                              children: [],
                             ),
                           ),
                         ],

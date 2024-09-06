@@ -550,7 +550,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                         FlutterFlowDropDown<String>(
                           controller: _model.dropDownValueController ??=
                               FormFieldController<String>(null),
-                          options: const ['Centro de mesa', 'Sousplat'],
+                          options: const ['Centro de mesa', 'Sousplat', 'Tapete'],
                           onChanged: (val) =>
                               safeSetState(() => _model.dropDownValue = val),
                           width: MediaQuery.sizeOf(context).width * 1.0,

@@ -1,4 +1,4 @@
-import '/auth/base_auth_user_provider.dart';
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -111,34 +111,60 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                       ),
-                      if (loggedIn)
-                        FlutterFlowIconButton(
-                          borderRadius: 20.0,
-                          borderWidth: 1.0,
-                          buttonSize: 40.0,
-                          icon: const Icon(
-                            Icons.add,
-                            color: Color(0xFFCE7899),
-                            size: 24.0,
-                          ),
-                          onPressed: () async {
-                            context.pushNamed('addProduct');
-                          },
-                        ),
-                      if (loggedIn == false)
-                        FlutterFlowIconButton(
-                          borderRadius: 20.0,
-                          borderWidth: 1.0,
-                          buttonSize: 40.0,
-                          icon: const Icon(
-                            Icons.lock_person,
-                            color: Color(0xFFCE7899),
-                            size: 24.0,
-                          ),
-                          onPressed: () async {
-                            context.pushNamed('login');
-                          },
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          if (loggedIn)
+                            FlutterFlowIconButton(
+                              borderRadius: 20.0,
+                              borderWidth: 1.0,
+                              buttonSize: 40.0,
+                              icon: const Icon(
+                                Icons.logout_sharp,
+                                color: Color(0xFFCE7899),
+                                size: 24.0,
+                              ),
+                              onPressed: () async {
+                                GoRouter.of(context).prepareAuthEvent();
+                                await authManager.signOut();
+                                GoRouter.of(context).clearRedirectLocation();
+
+                                context.goNamedAuth(
+                                    'HomePage', context.mounted);
+                              },
+                            ),
+                          if (loggedIn)
+                            FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 20.0,
+                              borderWidth: 1.0,
+                              buttonSize: 40.0,
+                              icon: const Icon(
+                                Icons.add,
+                                color: Color(0xFFCE7899),
+                                size: 24.0,
+                              ),
+                              onPressed: () async {
+                                context.pushNamed('addProduct');
+                              },
+                            ),
+                          if (loggedIn == false)
+                            FlutterFlowIconButton(
+                              borderRadius: 20.0,
+                              borderWidth: 1.0,
+                              buttonSize: 40.0,
+                              icon: const Icon(
+                                Icons.lock_person,
+                                color: Color(0xFFCE7899),
+                                size: 24.0,
+                              ),
+                              onPressed: () async {
+                                context.pushNamed('login');
+                              },
+                            ),
+                        ],
+                      ),
                     ],
                   ),
                   Padding(
@@ -312,32 +338,35 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               ],
                                             ),
                                           ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                'produto',
-                                                queryParameters: {
-                                                  'produto': serializeParam(
-                                                    pageViewProdutosRow,
-                                                    ParamType.SupabaseRow,
-                                                  ),
-                                                }.withoutNulls,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(15.0),
-                                              child: Image.network(
-                                                pageViewProdutosRow.image,
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        1.0,
-                                                fit: BoxFit.fill,
+                                          Flexible(
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed(
+                                                  'produto',
+                                                  queryParameters: {
+                                                    'produto': serializeParam(
+                                                      pageViewProdutosRow,
+                                                      ParamType.SupabaseRow,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(15.0),
+                                                child: Image.network(
+                                                  pageViewProdutosRow.image,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          1.0,
+                                                  fit: BoxFit.fill,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -404,14 +433,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       children: [
                         Text(
                           'Categorias',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Readex Pro',
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
-                                letterSpacing: 0.0,
-                              ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    color: const Color(0xFFCE7899),
+                                    letterSpacing: 0.0,
+                                  ),
                         ),
                       ],
                     ),
