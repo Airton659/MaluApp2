@@ -5,3 +5,4 @@ export '/pages/add_product/add_product_widget.dart' show AddProductWidget;
 export '/pages/login/login_widget.dart' show LoginWidget;
 export '/pages/edit_product/edit_product_widget.dart' show EditProductWidget;
 export '/pages/sobre/sobre_widget.dart' show SobreWidget;
+export '/pages/splash/splash_widget.dart' show SplashWidget;

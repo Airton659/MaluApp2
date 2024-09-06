@@ -110,7 +110,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                             await authManager.signOut();
                             GoRouter.of(context).clearRedirectLocation();
 
-                            context.goNamedAuth('HomePage', context.mounted);
+                            context.goNamedAuth('splash', context.mounted);
                           },
                           child: const Icon(
                             Icons.logout,

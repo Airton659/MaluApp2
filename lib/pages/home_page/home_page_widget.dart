@@ -137,8 +137,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 await authManager.signOut();
                                 GoRouter.of(context).clearRedirectLocation();
 
-                                context.goNamedAuth(
-                                    'HomePage', context.mounted);
+                                context.goNamedAuth('splash', context.mounted);
                               },
                             ),
                           if (loggedIn)

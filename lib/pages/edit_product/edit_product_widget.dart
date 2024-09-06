@@ -147,8 +147,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                 await authManager.signOut();
                                 GoRouter.of(context).clearRedirectLocation();
 
-                                context.goNamedAuth(
-                                    'HomePage', context.mounted);
+                                context.goNamedAuth('splash', context.mounted);
                               },
                               child: const Icon(
                                 Icons.logout,
@@ -193,6 +192,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                             await selectMediaWithSourceBottomSheet(
                                           context: context,
                                           storageFolderPath: 'fotos',
+                                          maxHeight: 400.00,
                                           allowPhoto: true,
                                         );
                                         if (selectedMedia != null &&
