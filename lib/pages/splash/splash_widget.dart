@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -26,9 +27,13 @@ class _SplashWidgetState extends State<SplashWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
+      GoRouter.of(context).prepareAuthEvent();
+      await authManager.signOut();
+      GoRouter.of(context).clearRedirectLocation();
+
       await Future.delayed(const Duration(milliseconds: 3000));
 
-      context.pushNamed('HomePage');
+      context.pushNamedAuth('HomePage', context.mounted);
     });
   }
 
